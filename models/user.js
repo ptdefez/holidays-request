@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const WORK_FACTOR = 10;
+const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 
 const schema = new mongoose.Schema({
-  administrator: {
-    type: Boolean,
-    required: true,
+  role: {
+    type: String,
+    enum: [constants.ROLE_ADMIN, constants.ROLE_GUEST],
+    default: constants.ROLE_GUEST
   },
   name: {
     type: String,
@@ -25,6 +27,14 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
     minlength: [8, 'Needs at least 8 characters']
+  },
+  responsable_email: {
+    type: String,
+    unique: true,
+    trim: true,
+    lowercase: true,
+    require: [true, 'Responsable\'s email is required'],
+    match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/, 'Invalid email format']
   }
 }, { timestamps: true });
 
@@ -35,8 +45,11 @@ schema.methods.checkPassword = function (password) {
 schema.pre('save', function (next) {
   const user = this;
 
+  if (user.email === FIRST_ADMIN_EMAIL) {
+    user.role = constants.ROLE_ADMIN;
+  }
+
   if (user.isModified('password')) {
-    // TODO: hash password
     bcrypt.genSalt(WORK_FACTOR)
       .then(salt => {
         return bcrypt.hash(user.password, salt)
