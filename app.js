@@ -17,12 +17,12 @@ const app = express();
 
 
 
-// require('./config/db.config');
-// require('./config/hbs.config');
-// require('./config/passport.config').setup(passport);
+require('./config/db.config');
+require('./config/hbs.config');
+require('./config/passport.config').setup(passport);
 
-// const authRouter = require('./routes/auth.routes');
-// const usersRouter = require('./routes/users.routes');
+const authRouter = require('./routes/auth.routes');
+const usersRouter = require('./routes/users.routes');
 
 
 
@@ -59,8 +59,8 @@ app.use((req, res, next) => {
   next();
 })
 
-// app.use('/', authRouter);
-// app.use('/', usersRouter);
+app.use('/', authRouter);
+app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));
