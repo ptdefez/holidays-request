@@ -7,7 +7,6 @@ module.exports.login = (req, res, next) => {
 }
 
 module.exports.doLogin = (req, res, next) => {
-  // TODO: authenticate user
   const email = req.body.email;
   const password = req.body.password;
   if (!email || !password) {
@@ -38,10 +37,12 @@ module.exports.doLogin = (req, res, next) => {
 }
 
 module.exports.register = (req, res, next) => {
+
   res.render('auth/register');
 }
 
 module.exports.doRegister = (req, res, next) => {
+
 
   function renderWithErrors(user, errors) {
     res.render('auth/register', {
@@ -50,17 +51,26 @@ module.exports.doRegister = (req, res, next) => {
     });
   }
 
+  if (req.body.password !== req.body['repeat-password']){
+    renderWithErrors(req.body, {
+      'repeat-password': 'Las contraseñas no coinciden'
+    });
+  }
   User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
         renderWithErrors(req.body, {
-          email: 'Email is already registered'
+          email: 'Email ya registrado'
         });
       } else {
-        console.log(req.body.email);
+        const { role, name, surname, email, responsable_email, password } = req.body;
         user = new User({
-          email: req.body.email,
-          password: req.body.password
+          role,
+          name,
+          surname,
+          email,
+          responsable_email,
+          password
         })
         return user.save()
           .then(user => {

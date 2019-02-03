@@ -1,0 +1,119 @@
+  <form action="" method="POST" class="w3-container w3-display-middle w3-col s6 ">
+
+            <p>
+
+              <fieldset>
+
+                <legend>Clase de Solicitud<abbr title="This field is mandatory">*</abbr></legend>
+
+                <input type="radio" required name="title" id="r1" value="Vacaciones" ><label for="r1">Vacaciones </label>
+
+                <input type="radio" required name="title" id="r2" value="Asuntos Propios"><label for="r2">Asuntos Propios</label>
+
+                <input type="radio" required name="title" id="r2" value="Permiso Retribuido"><label for="r2">Permiso Retribuido</label>
+
+              </fieldset>
+
+            </p>
+
+            <div>
+
+                <h2>Vacaciones</h2>
+
+                <p>
+
+                    <label for="inicio">Fecha de inicio</label>
+
+                    <input type="date" required id="inicio" name="inicio">
+
+                    <label for="fin">Fecha de finalización</label>
+
+                    <input type="date" required id="fin" name="fin">
+
+ 
+
+                </p>
+
+            </div>
+
+            <div>
+
+                <h2>Asuntos Propios</h2>
+
+                <p>
+
+                        <label for="fecha">Fecha</label>
+
+                        <input type="date" required id="inicio" name="fecha">
+
+                        <label for="fecha">Modalidad</label>
+
+                        <input type="radio" required name="2" id="2h" value="2h" ><label for="2h">2h</label>
+
+                        <input type="radio" required name="4" id="4h" value="4h"><label for="4h">4h</label>
+
+                        <input type="radio" required name="8" id="8h" value="8h"><label for="8h">8h</label>
+
+                        <textarea></textarea>
+
+                </p>
+
+ 
+
+            </div>
+
+            <div>
+
+                <h2>Permiso Retribuido</h2>
+
+                <p>
+
+                        <label for="inicio">Fecha de inicio</label>
+
+                        <input type="date" required id="inicio" name="inicio">
+
+                        <label for="fin">Fecha de finalización</label>
+
+                        <input type="date" required id="fin" name="fin">
+
+        
+
+                </p>
+
+                <p>
+
+                <label for="causa">Causa<abbr title="Este campo es obligatorio">*</abbr></label>
+
+                <input type="text" id="causa" name="causa" list="l1" required>
+
+                <datalist id="l1">
+
+                    <option>Matrimonio</option>
+
+                    <option>Nacimiento Hijo</option>
+
+                    <option>Intervención / Hospitalización 1º / 2º Grado</option>
+
+                    <option>Traslado Domicilio Habitual</option>
+
+                    <option>Asistencia Juicio / Jurado</option>
+
+                    <option>Fallecimiento Familiar 1º / 2º Grado</option>
+
+                    <option>Otra</option>
+
+                </datalist>
+
+                <textarea></textarea>
+
+                </p>
+
+            </div>
+
+              <button type="submit">Enviar</button>
+
+            </p>
+
+          </form>
+
+

@@ -4,22 +4,26 @@
         </div>
 
         <label class="w3-margin"><b>Nombre</b></label>
-        <input name="name" class="w3-input w3-border" type="text">
+        <input name="name" required class="w3-input w3-border" type="text" value="{{ user.name }}">
 
         <label class="w3-margin"><b>Apellidos</b></label>
-        <input name="surname" class="w3-input w3-border" type="text">
+        <input name="surname" required class="w3-input w3-border" type="text" value="{{ user.surname }}">
 
         <label class="w3-margin"><b>Email</b></label>
-        <input name="email" class="w3-input w3-border" type="email">
+        <input name="email" class="w3-input w3-border {{#if errors.email }} is-invalid {{/if}}" type="email" value="{{ user.email }}">
+         {{#if errors.email }} <div class="invalid-feedback">{{ errors.email }}</div> {{/if}}
 
         <label class="w3-margin"><b>Email de Responsable</b></label>
-        <input name="responsable_email" class="w3-input w3-border" type="email">
+        <input name="responsable_email" required class="w3-input w3-border" type="email" value="{{ user.responsable_email }}">
 
         <label class="w3-margin"><b>Contraseña</b></label>
-        <input name="password" class="w3-input w3-border" type="password"> 
+        <input name="password" required class="w3-input w3-border {{#if errors.password }} is-invalid {{/if}}" type="password" value="{{ user.password }}"> 
+        {{#if errors.password }} <div class="invalid-feedback">{{ errors.password }}</div> {{/if}}
+        {{#if errors.global }} <div class="invalid-feedback">{{ errors.global }}</div> {{/if}}
 
         <label class="w3-margin"><b>Repite Contraseña</b></label>
-        <input name="password" class="w3-input w3-border" type="password">  
+        <input name="repeat-password" required class="w3-input w3-border" type="password">  
+         {{#if errors.repeat-password }} <div class="invalid-feedback">{{ errors.repeat-password }}</div> {{/if}}
 
         <button type="submit" class="w3-btn w3-indigo w3-round w3-margin">Registro</button>
 

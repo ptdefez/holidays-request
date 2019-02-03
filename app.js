@@ -14,15 +14,12 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-
-
-
 require('./config/db.config');
 require('./config/hbs.config');
 require('./config/passport.config').setup(passport);
 
 const authRouter = require('./routes/auth.routes');
-const usersRouter = require('./routes/users.routes');
+const usersRouter = require('./routes/user.routes');
 
 
 
@@ -51,6 +48,7 @@ app.use(session({
     ttl: 24 * 60 * 60 * 1000 * 7
   })
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 

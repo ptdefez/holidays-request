@@ -7,10 +7,11 @@
         <a  class="w3-bar-item w3-button w3-large" href="/users">Administrador</a>
 
          {{#if session.email }}
+        <a  class="w3-bar-item w3-button w3-large w3-right" href="/logout">Logout</a> 
 
-        <a  class="w3-bar-item w3-button w3-large w3-right" href="javascript:;">{{ session.email }}>Login</a>
+        <a  class="w3-bar-item w3-button w3-large w3-right" href="javascript:;">{{ session.email }}</a>
 
-        <a  class="w3-bar-item w3-button w3-large w3-right" href="/logout">Logout</a>
+        
 
         {{else}}
 

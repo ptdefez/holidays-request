@@ -1,5 +1,7 @@
+const constants = require('../constants');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const constants = require('/request.model');
 const WORK_FACTOR = 10;
 const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 
@@ -21,20 +23,23 @@ const schema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     require: [true, 'Email is required'],
-    match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/, 'Invalid email format']
+    match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/, 'Formato de email no válido']
   },
   password: {
     type: String,
     require: true,
-    minlength: [8, 'Needs at least 8 characters']
+    minlength: [6, 'Necesita al menos 6 caracteres']
+  },
+  responsable: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   responsable_email: {
     type: String,
-    unique: true,
     trim: true,
     lowercase: true,
     require: [true, 'Responsable\'s email is required'],
-    match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/, 'Invalid email format']
+    match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,10}$/, 'Formato de email no válido']
   }
 }, { timestamps: true });
 

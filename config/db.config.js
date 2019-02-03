@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/lab-authentication-with-passport'
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/holidays-request'
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
