@@ -1,7 +1,6 @@
 const constants = require('../constants');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const constants = require('/request.model');
 const WORK_FACTOR = 10;
 const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 
