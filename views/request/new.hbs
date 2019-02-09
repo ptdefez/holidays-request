@@ -1,76 +1,86 @@
-    <form action="/request/new" method="POST" class="w3-container w3-display-middle w3-col s6 ">
-            <p>
-                <h2 class="w3-row w3-indigo w3-center w3-round">Solicitud</h2>
-                 <p>
-                    <label for="inicio">Fecha de inicio</label>
-                    <input type="date" id="inicio" name="inicio">
-                    <label for="fin">Fecha de finalización</label>
-                    <input type="date" id="fin" name="inicio"> 
 
-                </p>
-              <fieldset>
-                <legend>Clase de Solicitud<abbr title="Este campo es obligatorio">*</abbr></legend>
-                <input type="radio" name="class" id="r1" value="Vacaciones" onchange="show('vac')"><label for="r1">Vacaciones </label>
-                <input type="radio" name="class" id="r2" value="Asuntos Propios" onchange="show('apr')"><label for="r2" >Asuntos Propios</label>
-                <input type="radio" name="class" id="r2" value="Permiso Retribuido" onchange="show('pr')"><label for="r2" >Permiso Retribuido</label>
-              </fieldset>
-            </p>
-            <div id="vac" class="w3-hide">
-                <h2>Vacaciones</h2>
-               
-            </div>
-            <div id="apr" class="w3-hide">
-                <h2>Asuntos Propios</h2>
-                <p>                     
-                        <label for="fecha">Modalidad</label>
-                        <input type="radio" name="duration" id="2h" value="2h" ><label for="2h">2h</label>
-                        <input type="radio" name="duration"  id="4h" value="4h"><label for="4h">4h</label>
-                        <input type="radio" name="duration" id="8h" value="8h"><label for="8h">8h</label>
-                        <textarea></textarea>
-                </p>
+<form action="/request/new" method="POST" class="w3-container w3-display-middle w3-col s6 ">
+    <p>
+        <h2 class="w3-row w3-indigo w3-center w3-round">Solicitud</h2>
+        <p>
+            <label for="inicio">Fecha de inicio</label>
+            <input type="date" id="start" name="start">
+            <label for="fin">Fecha de finalización</label>
+            <input type="date" id="end" name="end">
 
-            </div>
-            <div id="pr" class="w3-hide">
-                <h2>Permiso Retribuido</h2>             
-                <p>
-                <label for="causa">Causa<abbr title="Este campo es obligatorio">*</abbr></label>
-                <input type="text" id="causa" name="reason" list="l1">
-                <datalist id="l1">
-                    <option>Matrimonio </option>
-                    <option>Nacimiento Hijo</option>
-                    <option>Intervención / Hospitalización 1º / 2º Grado </option>
-                    <option>Traslado Domicilio Habitual</option>
-                    <option>Asistencia Juicio / Jurado</option>
-                    <option>Fallecimiento Familiar 1º / 2º Grado</option>
-                    <option>Otra</option>
-                </datalist>
-                <textarea></textarea>
-                </p>
-            </div>
-              <button type="submit" class="w3-btn w3-indigo w3-round w3-margin">Enviar</button>
-              
-    </form>
+        </p>
+        <fieldset>
+            <legend>Clase de Solicitud<abbr title="Este campo es obligatorio">*</abbr></legend>
+            <input type="radio" name="kind" id="r1" value="Vacaciones" onchange="show('vac')"><label for="r1">Vacaciones
+            </label>
+            <input type="radio" name="kind" id="r2" value="Asuntos Propios" onchange="show('apr')"><label for="r2">Asuntos
+                Propios</label>
+            <input type="radio" name="kind" id="r2" value="Permiso Retribuido" onchange="show('pr')"><label for="r2">Permiso
+                Retribuido</label>
+        </fieldset>
+    </p>
+    <div id="vac" class="w3-hide">
+        <h2>Vacaciones</h2>
 
-    <script>
+    </div>
+    <div id="apr" class="w3-hide">
+        <h2>Asuntos Propios</h2>
+        <p>
+            <label for="fecha">Modalidad</label>
+            <input type="radio" name="duration" id="2h" value="2"><label for="2h">2h</label>
+            <input type="radio" name="duration" id="4h" value="4"><label for="4h">4h</label>
+            <input type="radio" name="duration" id="8h" value="8"><label for="8h">8h</label>
+            <textarea></textarea>
+        </p>
 
-            function show(element) {
-                var vac = document.getElementById("vac");
-                var apr = document.getElementById("apr"); 
-                var pr = document.getElementById("pr"); 
+    </div>
+    {{!-- <div id="pr" class="w3-hide">
+        <h2>Permiso Retribuido</h2>
+        <p>
+            <label for="causa">Causa<abbr title="Este campo es obligatorio">*</abbr></label>
+            <input type="text" id="causa" name="reason" list="l1">
+            <datalist id="l1">
+                <option value="null" default></option>
+                <option value="Matrimonio">Matrimonio</option>
+                <option>Nacimiento Hijo</option>
+                <option>Intervención / Hospitalización 1º / 2º Grado </option>
+                <option>Traslado Domicilio Habitual</option>
+                <option>Asistencia Juicio / Jurado</option>
+                <option>Fallecimiento Familiar 1º / 2º Grado</option>
+                <option>Otra</option>
+            </datalist>
+            <textarea></textarea>
+        </p>
+    </div> --}}
+    <button type="submit" class="w3-btn w3-indigo w3-round w3-margin">Enviar</button>
 
-                var x = document.getElementById(element);
+</form>
 
-                vac.classList.remove("w3-show");
-                vac.classList.add("w3-hide"); 
+<script>
 
-                apr.classList.remove("w3-show");
-                apr.classList.add("w3-hide"); 
+     function minDate() {
+      var minValue = document.getElementById("start").value;
+      document.getElementById("end").setAttribute("min", minValue);
+    }
 
-                pr.classList.remove("w3-show");
-                pr.classList.add("w3-hide");
+    function show(element) {
+        var vac = document.getElementById("vac");
+        var apr = document.getElementById("apr");
+        var pr = document.getElementById("pr");
 
-                x.classList.remove("w3-hide");
-                x.classList.add("w3-show");  
-            }
-               
-    </script>
+        var x = document.getElementById(element);
+
+        vac.classList.remove("w3-show");
+        vac.classList.add("w3-hide");
+
+        apr.classList.remove("w3-show");
+        apr.classList.add("w3-hide");
+
+        pr.classList.remove("w3-show");
+        pr.classList.add("w3-hide");
+
+        x.classList.remove("w3-hide");
+        x.classList.add("w3-show");
+    }
+
+</script>

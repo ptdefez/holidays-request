@@ -1,3 +1,8 @@
-input:invalid, .is-invalid  {
-    box-shadow: 0 0 5px 1px red;
-  }
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}

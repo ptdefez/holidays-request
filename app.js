@@ -4,7 +4,6 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const bcrypt = require("bcrypt");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');

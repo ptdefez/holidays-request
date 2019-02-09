@@ -3,8 +3,6 @@ const router = express.Router();
 const authController = require('../controllers/auth.controller');
 const secure = require('../middlewares/secure.mid');
 
-console.log('entra')
-
 router.get('/login', authController.login);
 router.post('/login', authController.doLogin);
 

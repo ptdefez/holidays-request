@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    class: {
+    kind: {
         type: String,
         enum: ['Vacaciones', 'Asuntos Propios', 'Permiso Retribuido'],
         require: [true, 'Es necesario señalar la clase de solicitud'],
@@ -20,6 +20,7 @@ const schema = new mongoose.Schema({
     reason: {
         type: String,
         enum: ['Matrimonio', 'Nacimiento Hijo', 'Intervención / Hospitalización 1º / 2º Grado', 'Traslado Domicilio Habitual', 'Asistencia Juicio / Jurado', 'Fallecimiento Familiar 1º / 2º Grado', 'Otra'],
+        required: false
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
