@@ -1,0 +1,32 @@
+ <form action="/register" method="POST" class="w3-container w3-display-middle w3-col s6 ">
+        <div class="w3-row w3-indigo w3-center w3-round">
+            <h2>Registro</h2>
+        </div>
+
+        <label class="w3-margin"><b>Nombre</b></label>
+        <input name="name" required class="w3-input w3-border" type="text" value="{{ user.name }}">
+
+        <label class="w3-margin"><b>Apellidos</b></label>
+        <input name="surname" required class="w3-input w3-border" type="text" value="{{ user.surname }}">
+
+        <label class="w3-margin"><b>Email</b></label>
+        <input name="email" class="w3-input w3-border {{#if errors.email }} is-invalid {{/if}}" type="email" value="{{ user.email }}">
+         {{#if errors.email }} <div class="invalid-feedback">{{ errors.email }}</div> {{/if}}
+
+        <label class="w3-margin"><b>Email de Responsable</b></label>
+        <input name="responsable_email" required class="w3-input w3-border" type="email" value="{{ user.responsable_email }}">
+
+        <label class="w3-margin"><b>Contraseña</b></label>
+        <input name="password" required class="w3-input w3-border {{#if errors.password }} is-invalid {{/if}}" type="password" value="{{ user.password }}"> 
+        {{#if errors.password }} <div class="invalid-feedback">{{ errors.password }}</div> {{/if}}
+        {{#if errors.global }} <div class="invalid-feedback">{{ errors.global }}</div> {{/if}}
+
+        <label class="w3-margin"><b>Repite Contraseña</b></label>
+        <input name="repeat-password" required class="w3-input w3-border" type="password">  
+         {{#if errors.repeat-password }} <div class="invalid-feedback">{{ errors.repeat-password }}</div> {{/if}}
+
+        <button type="submit" class="w3-btn w3-indigo w3-round w3-margin">Registro</button>
+
+        <p >¿Ya registrado? <a class="w3-text-blue"  href="/login">Haz login</a>.</p>
+
+    </form>
