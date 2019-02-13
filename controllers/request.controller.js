@@ -20,12 +20,15 @@ module.exports.doCreate = (req,res, next) => {
 
     console.log(req.body);
     const request = new Request(req.body);
+    
+    request.dates = req.body;
     request.user = req.user.id;
     request.responsable = req.user.responsable;
 
     request.save()
-        .then(request => {
-            res.redirect('auth/profile');
+        .then(result => {
+            console.info('result => ', result)
+            res.redirect('/profile');
         })
         .catch(error => {
             if (error instanceof mongoose.Error.ValidationError) {
@@ -36,50 +39,71 @@ module.exports.doCreate = (req,res, next) => {
         })
 }
 
-module.exports.userList = (req,res, next) => {
-    function renderWithErrors(request, errors) {
-        res.render('user/profile', {
-          request: request,
-          errors: errors
-        });
-      }
-    Request.find({user: req.user.id} )
-        .then(requests => {           
-            res.render('user/profile', {requests});     
-        })
-        .catch(error => {
-            renderWithErrors(req.body, {
-                'no-request': 'No hay solicitudes.'
-            });
-        });
+module.exports.list = (req, res, next) => {
+    Request.find({
+        $or: [
+            {user: req.user.id},
+            {responsable_email: req.user.id}
+        ]
+    })
+    .populate('user', 'responsable_email')
+    .then(requests => {
+       
+        const ownRequests = requests.filter(r => r.user.id === req.user.id);
+        const bossRequests = requests.filter(r => r.responsable_email === req.user.id);
+        res.render('request/list', { ownRequests, bossRequests });     
+    })
+}
+
+// module.exports.ownList = (req,res, next) => {
+//     function renderWithErrors(request, errors) {
+//         res.render('user/profile', {
+//           request: request,
+//           errors: errors
+//         });
+//       }
+//     Request.find({user: req.user.id} )
+//         .then(requests => {           
+//             res.render('user/profile', {ownRequests});     
+//         })
+//         .catch(error => {
+//             renderWithErrors(req.body, {
+//                 'no-request': 'No hay solicitudes.'
+//             });
+//         });
+
+// }
+
+// module.exports.bossList = (req,res, next) => {
+//     function renderWithErrors(bossRequest, errors) {
+//         res.render('user/profile', {
+//             bossRequest: bossRequest,
+//             errors: errors
+//         });
+//       }
+//     Request.find({responsable: req.user.id} )
+//         .then(bossRequests => {           
+//             res.render('user/profile', {bossRequests});      
+//         })
+//         .catch(error => {
+//             renderWithErrors(req.body, {
+//                 'no-bossRequest': 'No hay solicitudes.'
+//             });
+//         });
+
+
+
+module.exports.changeStatus = (req, res, next) => {
 
 }
 
-module.exports.bossList = (req,res, next) => {
-    function renderWithErrors(bossRequest, errors) {
-        res.render('user/profile', {
-            bossRequest: bossRequest,
-            errors: errors
-        });
-      }
-    Request.find({responsable: req.user.id} )
-        .then(bossRequests => {           
-            res.render('user/profile', {bossRequests});      
-        })
-        .catch(error => {
-            renderWithErrors(req.body, {
-                'no-bossRequest': 'No hay solicitudes.'
-            });
-        });
 
-}
 
 module.exports.delete = (req, res, next) => {
     Request.findByIdAndDelete(req.params.id)
-        
+        .then((request) => res.redirect('request/list'))
+        .cath(error => next(error));  
+
+      
 }
 
-module.exports.validate = (req, res, next) => {
-    Request.findByIdAndUpdate(req.params.id)
-        
-}

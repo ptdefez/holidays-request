@@ -7,12 +7,12 @@ const schema = new mongoose.Schema({
         enum: ['Vacaciones', 'Asuntos Propios', 'Permiso Retribuido'],
         require: [true, 'Es necesario señalar la clase de solicitud'],
     },
-    start: {
-        type: Date
-    },
-    end: {
-        type: Date
-    },
+    dates: [{
+        start: Date,
+        end: Date,
+    },{
+        validate: [isDateRangeValid, 'La fecha de finalización no puede ser anterior a la de inicio']
+    }],
     duration: {
         type: Number,
         enum: [2, 4, 8]
@@ -26,12 +26,28 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    responsable: {
+    responsable_email: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    isPending: {
+        type: Boolean,
+        default: true
+    },
+    isRejected: {
+        type: Boolean,
+        default: false
+    },
+    isApproved: {
+        type: Boolean,
+        default: false
     }
 
 })
+
+function isDateRangeValid(dateRange) {
+    return dateRange.start <= dateRange.end;
+}
 
 const Request = mongoose.model('Request', schema);
 module.exports = Request;

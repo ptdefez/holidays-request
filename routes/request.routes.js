@@ -7,11 +7,12 @@ const secure = require('../middlewares/secure.mid');
 router.get('/new', secure.isAuthenticated, requestController.create);
 router.post('/new', secure.isAuthenticated, requestController.doCreate);
 
-router.get('/profile', secure.isAuthenticated, requestController.userList);
-router.get('/profile', secure.isAuthenticated, requestController.bossList);
+router.get('/list', secure.isAuthenticated, requestController.list);
+// router.get('/list', secure.isAuthenticated, requestController.ownList);
+// router.get('/list', secure.isAuthenticated, requestController.bossList);
 
 router.post('/:id/delete', secure.isAuthenticated, requestController.delete); 
 
-router.post('/:id/validate', secure.isAuthenticated, requestController.validate);
+router.post('/:id/changeStatus', secure.isAuthenticated, requestController.changeStatus);
 
 module.exports = router;

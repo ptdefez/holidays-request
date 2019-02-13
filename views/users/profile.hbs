@@ -2,31 +2,6 @@
 <h3>Welcome {{ session.email }} </h3>
 
 <a href="/request/new">Nueva Solicitud</a>
+<a href="/request/list">Listado de Solicitudes</a>
 
-<div class="w3-container w3-left w3-col s6 W3-border">
-    <h3>Solicitudes Propias</h3>
-    <div class="invalid-feedback">{{ errors.no-request }}</div>
-    <ul class="w3-ul w3-center">
-         {{#each requests as |request|}}
-            <li>{{request.kind}} - {{request.start}} /  {{request.end}}</li>
-            <form action="/request/{{request.id}}/delete" method=POST>
-                <button class="w3-btn w3-red w3-round w3-margin" type="submit">Anular</button> 
-            </form>
-         {{/each}} 
-           
-    </ul>
-</div>
 
-<div class="w3-container w3-right w3-col s6 W3-border">
-    <h3>Solicitudes de Subordinados</h3>
-    <div class="invalid-feedback">{{ errors.no-bossRequest }}</div>
-    <ul class="w3-ul w3-center">
-        {{#each bossRequests as |request|}}
-            <li><a href="/request/{{ request.id }}">{{request.user}} - {{request.kind}} - {{request.start}} /  {{request.end}}</a></li>
-            <form action="/request/{{request.id}}/validate" method=POST>
-                <button class="w3-btn w3-green w3-round w3-margin" type="submit">Validar</button> 
-            </form>
-         {{/each}} 
-        
-    </ul>
-</div>
