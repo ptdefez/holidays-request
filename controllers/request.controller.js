@@ -38,21 +38,21 @@ module.exports.doCreate = (req,res, next) => {
             }
         })
 }
-
 module.exports.list = (req, res, next) => {
-    Request.find({
-        $or: [
-            {user: req.user.id},
-            {responsable_email: req.user.id}
-        ]
-    })
-    .populate('user', 'responsable_email')
-    .then(requests => {
-       
-        const ownRequests = requests.filter(r => r.user.id === req.user.id);
-        const bossRequests = requests.filter(r => r.responsable_email === req.user.id);
-        res.render('request/list', { ownRequests, bossRequests });     
-    })
+    User.find({ responsable_email: req.user.email })
+        .then((users) => {
+            subordinadosIds = users.map(u => u._id);
+
+            Request.find({ user: { $in: [...subordinadosIds, req.user._id] } })
+                .populate('user')
+                .then((requests) => {
+                    //return res.send({ requests })
+                    const ownRequests = requests.filter(r => req.user._id.toString() === r.user._id.toString());
+                    const bossRequests = requests.filter(r => req.user._id.toString() !== r.user._id.toString());
+                    //return res.send({ ownRequests, bossRequests })
+                    res.render("request/list", { ownRequests, bossRequests })
+                });
+        });
 }
 
 // module.exports.ownList = (req,res, next) => {
@@ -102,7 +102,7 @@ module.exports.changeStatus = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
     Request.findByIdAndDelete(req.params.id)
         .then((request) => res.redirect('request/list'))
-        .cath(error => next(error));  
+        // .cath(error => next(error));  
 
       
 }

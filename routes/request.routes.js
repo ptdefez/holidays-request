@@ -8,8 +8,7 @@ router.get('/new', secure.isAuthenticated, requestController.create);
 router.post('/new', secure.isAuthenticated, requestController.doCreate);
 
 router.get('/list', secure.isAuthenticated, requestController.list);
-// router.get('/list', secure.isAuthenticated, requestController.ownList);
-// router.get('/list', secure.isAuthenticated, requestController.bossList);
+
 
 router.post('/:id/delete', secure.isAuthenticated, requestController.delete); 
 

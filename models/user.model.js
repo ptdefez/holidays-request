@@ -29,11 +29,6 @@ const schema = new mongoose.Schema({
     require: true,
     minlength: [6, 'Necesita al menos 6 caracteres']
   },
- 
-  // responsable: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User'
-  // },
   responsable_email: {
     type: String,
     trim: true,

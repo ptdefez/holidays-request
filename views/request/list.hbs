@@ -1,9 +1,10 @@
 <div class="w3-container w3-left w3-col s6 w3-center">
     <h3>Solicitudes Propias</h3>
-    {{!-- <div class="invalid-feedback">{{ errors.no-request }}</div> --}}
+    
     <ul class="w3-ul ">
         {{#each ownRequests as |request|}}
-            <li>{{request.kind}} - {{request.dates}} /  {{request.dates.end}}
+        
+            <li>{{request.kind}} - {{date request.dates.0.start}} /  {{date request.dates.0.end}}
             <form action="/request/{{request._id}}/delete" method=POST>
                 <button class="w3-btn w3-text-red w3-round w3-margin" type="submit"><i class="glyphicon glyphicon-trash"></i></button> 
             </form>
@@ -17,10 +18,10 @@
 
 <div class="w3-container w3-right w3-col s6 w3-center">
     <h3>Solicitudes de Subordinados</h3>
-    {{!-- <div class="invalid-feedback">{{ errors.no-bossRequest }}</div> --}}
+
     <ul class="w3-ul ">
         {{#each bossRequests as |request|}}
-            <li>{{request.user}} - {{request.kind}} - {{request.dates}} /  {{request.end}}
+            <li>{{request.user.name}} - {{request.kind}} - {{date request.dates.0.start}} /  {{date request.dates.0.end}}
             <form action="/request/{{request._id}}/validate" method=POST>
                 <button class="w3-btn w3-text-green w3-round w3-margin" type="submit"><i class="glyphicon glyphicon-ok"></button> 
             </form>

@@ -9,9 +9,10 @@ const schema = new mongoose.Schema({
     },
     dates: [{
         start: Date,
-        end: Date,
+        end: Date
     },{
-        validate: [isDateRangeValid, 'La fecha de finalización no puede ser anterior a la de inicio']
+        validate: [isDateRangeValid, 'La fecha de finalización no puede ser anterior a la de inicio'],
+        
     }],
     duration: {
         type: Number,
@@ -23,10 +24,6 @@ const schema = new mongoose.Schema({
         required: false
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    responsable_email: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
