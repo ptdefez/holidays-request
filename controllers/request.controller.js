@@ -55,55 +55,48 @@ module.exports.list = (req, res, next) => {
         });
 }
 
-// module.exports.ownList = (req,res, next) => {
-//     function renderWithErrors(request, errors) {
-//         res.render('user/profile', {
-//           request: request,
-//           errors: errors
-//         });
-//       }
-//     Request.find({user: req.user.id} )
-//         .then(requests => {           
-//             res.render('user/profile', {ownRequests});     
-//         })
-//         .catch(error => {
-//             renderWithErrors(req.body, {
-//                 'no-request': 'No hay solicitudes.'
-//             });
-//         });
-
-// }
-
-// module.exports.bossList = (req,res, next) => {
-//     function renderWithErrors(bossRequest, errors) {
-//         res.render('user/profile', {
-//             bossRequest: bossRequest,
-//             errors: errors
-//         });
-//       }
-//     Request.find({responsable: req.user.id} )
-//         .then(bossRequests => {           
-//             res.render('user/profile', {bossRequests});      
-//         })
-//         .catch(error => {
-//             renderWithErrors(req.body, {
-//                 'no-bossRequest': 'No hay solicitudes.'
-//             });
-//         });
+module.exports.get = (req, res, next) => {
+    Request.findById(req.params.id)
+    // .then(request => res.send( { request }));
+        .populate('user')  
+        .then(request => res.render('request/show', { request }));
+  }
 
 
 
-module.exports.changeStatus = (req, res, next) => {
-
-}
 
 
 
 module.exports.delete = (req, res, next) => {
     Request.findByIdAndDelete(req.params.id)
-        .then((request) => res.redirect('request/list'))
+        .then(() => res.redirect('request/list'))
         // .cath(error => next(error));  
 
       
 }
 
+module.exports.validate = (req, res, next) => {
+    const { id } = req.params;
+    // return res.send({ id })
+    Request.findByIdAndUpdate(id, { $set: { isPending: 'false', isApproved: 'true' }}, { new: true })
+        .then(() => {
+            res.redirect("request/list")
+        })
+        .catch(error => {
+            console.info(error)
+            res.redirect("request/list")
+        });
+}
+
+module.exports.deny = (req, res, next) => {
+    const { id } = req.params;
+    // return res.send({ id })
+    Request.findByIdAndUpdate(id, { $set: { isRejected: 'true', isPending: 'false' }}, { new: true })
+        .then(() => {
+            res.redirect("request/list")
+        })
+        .catch(error => {
+            console.info(error)
+            res.redirect("request/list")
+        });
+}
