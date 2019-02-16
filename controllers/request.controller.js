@@ -18,8 +18,14 @@ module.exports.doCreate = (req,res, next) => {
         });
     }
 
-    console.log(req.body);
-    const request = new Request(req.body);
+    console.log('body', req.body);
+    console.log('files', req.files);
+    console.log('file', req.file);
+    const requestObj = { ...req.body };
+    if (req.file) {
+        requestObj.file = `/uploads/${req.file.filename}`;
+    }
+    const request = new Request(requestObj);
     
     request.dates = req.body;
     request.user = req.user.id;
@@ -69,7 +75,7 @@ module.exports.get = (req, res, next) => {
 
 module.exports.delete = (req, res, next) => {
     Request.findByIdAndDelete(req.params.id)
-        .then(() => res.redirect('request/list'))
+        .then(() => res.redirect('/request/list'))
         // .cath(error => next(error));  
 
       
@@ -80,11 +86,11 @@ module.exports.validate = (req, res, next) => {
     // return res.send({ id })
     Request.findByIdAndUpdate(id, { $set: { isPending: 'false', isApproved: 'true' }}, { new: true })
         .then(() => {
-            res.redirect("request/list")
+            res.redirect("/request/list")
         })
         .catch(error => {
             console.info(error)
-            res.redirect("request/list")
+            res.redirect("/request/list")
         });
 }
 
@@ -93,10 +99,10 @@ module.exports.deny = (req, res, next) => {
     // return res.send({ id })
     Request.findByIdAndUpdate(id, { $set: { isRejected: 'true', isPending: 'false' }}, { new: true })
         .then(() => {
-            res.redirect("request/list")
+            res.redirect("/request/list")
         })
         .catch(error => {
             console.info(error)
-            res.redirect("request/list")
+            res.redirect("/request/list")
         });
 }

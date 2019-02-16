@@ -38,9 +38,12 @@ const schema = new mongoose.Schema({
     isApproved: {
         type: Boolean,
         default: false
+    },
+    file: {
+        type: String
     }
 
-})
+}, { timestamps: true });
 
 function isDateRangeValid(dateRange) {
     return dateRange.start <= dateRange.end;

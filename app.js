@@ -9,6 +9,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
+const multer = require('multer');
 
 
 const app = express();
@@ -20,6 +21,7 @@ require('./config/passport.config').setup(passport);
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
 const requestRouter = require('./routes/request.routes');
+// const uploadDocRouter = require('./routes/uploadDoc.routes');
 
 
 // view engine setup
@@ -59,6 +61,7 @@ app.use((req, res, next) => {
 app.use('/', authRouter);
 app.use('/', usersRouter);
 app.use('/request', requestRouter);
+// app.use('/uploadDoc', uploadDocRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));

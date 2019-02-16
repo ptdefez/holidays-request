@@ -1,8 +1,13 @@
-<h2>Detalles de la Solicitud</h2>
-<p><span>Empleado: </span>{{request.user.name}}</p>
-<p><span>Clase de solicitud: </span>{{request.kind}}</p>
-<p><span>Duración: </span>{{date request.dates.0.start}} /  {{date request.dates.0.end}} - {{request.duration}}h</p>
-<p><samp>Causa: </samp>{{request.reason}}</p>
-<p><samp>Comentarios: </samp></p>
+<div class="w3-container w3-left w3-col s6 ">
+    <h2>Detalles de la Solicitud</h2>
+    <p><span>Empleado: </span>{{request.user.name}}</p>
+    <p><span>Clase de solicitud: </span>{{request.kind}}</p>
+    <p><span>Duración: </span>{{date request.dates.0.start}} /  {{date request.dates.0.end}} - {{request.duration}}h</p>
+    <p><span>Causa: </span>{{request.reason}}</p>
+    <p><a href="{{request.file}}">Download assets</a></p>
+    <p><samp>Comentarios: </samp></p>
+    <a href="/request/list">Volver</a>
+</div>
+<div class="w3-container w3-left w3-col s6 ">
 
-<a href="/request/list">Volver</a>
+</div>
